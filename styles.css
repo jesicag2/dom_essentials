@@ -1,0 +1,10 @@
+#quizContainer, #scoreContainer {
+    background-color: white;
+    width: 70%;
+    margin: 50px auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid black;
+}
