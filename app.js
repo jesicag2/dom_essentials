@@ -44,7 +44,7 @@ const quizData = [
 ];
 
 let currentQuestionIndex = 0;
-// let score = 0;
+let score = 0;
 
 const currentQuestion = quizData[currentQuestionIndex];
 
@@ -59,7 +59,7 @@ function loadQuestion() {
 
     // loops through each option for the current question
     currentQuestion.options.forEach((option, index) => {
-        const optionButton = document.createElement("button"); // creates cutton for option
+        const optionButton = document.createElement("button"); // creates button for option
         optionButton.classList.add("btn", "btn-secondary", "btn-sm")
         optionButton.textContent = option; // sets button text to the option
 
@@ -68,6 +68,31 @@ function loadQuestion() {
         // adds the option buttons to the option container
         optionsContainer.appendChild(optionButton);
     });
+};
+
+function selectOption(selectedIndex) {
+    // loop through and disable all buttons in option container
+    optionsContainer.querySelectorAll("button").forEach(button => {
+        button.disabled = true;
+    });
+
+    // checking if option selected is correct answer
+    const isCorrect = selectedIndex == quizData[currentQuestionIndex].answer;
+
+    // highlights correct or incorrect also tracks score
+    if (isCorrect) {
+        optionsContainer.querySelectorAll("button")[selectedIndex].classList.replace("btn-secondary", "btn-success")
+        score++;
+    } else {
+        optionsContainer.querySelectorAll("button")[selectedIndex].classList.replace("btn-secondary", "btn-danger")
+    };
+
+    // if I want to highlight correct answer if its wrong
+    // let correctIndex = quizData[currentQuestionIndex].answer;
+    // optionsContainer.querySelectorAll("button")[correctIndex].classList.replace("btn-secondary", "btn-outline-success");
+
+    // enables next button
+    nextButton.disabled = false;
 };
 
 loadQuestion();
