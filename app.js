@@ -110,8 +110,14 @@ nextButton.addEventListener("click", () => {
     }
 });
 
+restartButton.addEventListener("click", () => {
+    currentQuestionIndex = 0;
+    score = 0;
+    scoreContainer.classList.add("hidden");
+    quizContainer.classList.remove("hidden");
+    loadQuestion();
+});
 
-
-loadQuestion();
+document,addEventListener("DOMContentLoaded", loadQuestion);
 
 
