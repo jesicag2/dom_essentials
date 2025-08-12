@@ -100,7 +100,10 @@ function selectOption(selectedIndex) {
 };
 
 nextButton.addEventListener("click", () => {
+    // add to the current index #
     currentQuestionIndex++;
+
+    // if shorter than length of quiz load nect question, else hide quiz and show score 
     if (currentQuestionIndex < quizData.length) {
         loadQuestion();
     } else {
@@ -111,8 +114,11 @@ nextButton.addEventListener("click", () => {
 });
 
 restartButton.addEventListener("click", () => {
+    // reset quiz
     currentQuestionIndex = 0;
     score = 0;
+
+    // hide score and show quiz
     scoreContainer.classList.add("hidden");
     quizContainer.classList.remove("hidden");
     loadQuestion();
