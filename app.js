@@ -61,7 +61,7 @@ function loadQuestion() {
     // loops through each option for the current question
     currentQuestion.options.forEach((option, index) => {
         const optionButton = document.createElement("button"); // creates button for option
-        optionButton.classList.add("btn", "btn-secondary", "btn-sm")
+        optionButton.classList.add("btn", "btn-light")
         optionButton.textContent = option; // sets button text to the option
 
         // adds event for when a option is clicked
@@ -87,12 +87,12 @@ function selectOption(selectedIndex) {
 
     // highlights correct or incorrect also tracks score
     if (isCorrect) {
-        buttons[selectedIndex].classList.replace("btn-secondary", "btn-success");
+        buttons[selectedIndex].classList.replace("btn-light", "btn-success");
         score++;
     } else {
-        buttons[selectedIndex].classList.replace("btn-secondary", "btn-danger");
+        buttons[selectedIndex].classList.replace("btn-light", "btn-danger");
         // highlight correct answer
-        buttons[correctIndex].classList.replace("btn-secondary", "btn-outline-success");
+        buttons[correctIndex].classList.replace("btn-light", "btn-outline-success");
     };
 
     // enables next button
