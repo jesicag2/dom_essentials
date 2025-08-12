@@ -2,6 +2,7 @@ const quizContainer = document.getElementById("quiz-container");
 const questionContainer = document.getElementById("question-container");
 const optionsContainer = document.getElementById("options-container");
 const scoreContainer = document.getElementById("score-container");
+const scoreId = document.getElementById("score")
 const nextButton = document.getElementById("next-button");
 const restartButton = document.getElementById("restart-button");
 
@@ -32,7 +33,7 @@ const quizData = [
         answer: 1
     },
     {
-        question: "What is oppurtunity cost?",
+        question: "What is opportunity cost?",
         options: ["The money spent on a purchase.", "The price of the product.", "The amount of money earned.", "What you give up when you make a choice."],
         answer: 3
     },
@@ -46,9 +47,9 @@ const quizData = [
 let currentQuestionIndex = 0;
 let score = 0;
 
-const currentQuestion = quizData[currentQuestionIndex];
-
 function loadQuestion() {
+    const currentQuestion = quizData[currentQuestionIndex];
+
     // disabled next button
     nextButton.disabled = true;
     // clears the previos question
@@ -71,29 +72,45 @@ function loadQuestion() {
 };
 
 function selectOption(selectedIndex) {
+
+    // selects buttons within option container
+    const buttons = optionsContainer.querySelectorAll("button");
+
     // loop through and disable all buttons in option container
-    optionsContainer.querySelectorAll("button").forEach(button => {
+    buttons.forEach(button => {
         button.disabled = true;
     });
 
     // checking if option selected is correct answer
-    const isCorrect = selectedIndex == quizData[currentQuestionIndex].answer;
+    const correctIndex = quizData[currentQuestionIndex].answer;
+    const isCorrect = selectedIndex === correctIndex;
 
     // highlights correct or incorrect also tracks score
     if (isCorrect) {
-        optionsContainer.querySelectorAll("button")[selectedIndex].classList.replace("btn-secondary", "btn-success")
+        buttons[selectedIndex].classList.replace("btn-secondary", "btn-success");
         score++;
     } else {
-        optionsContainer.querySelectorAll("button")[selectedIndex].classList.replace("btn-secondary", "btn-danger")
+        buttons[selectedIndex].classList.replace("btn-secondary", "btn-danger");
+        // highlight correct answer
+        buttons[correctIndex].classList.replace("btn-secondary", "btn-outline-success");
     };
-
-    // if I want to highlight correct answer if its wrong
-    // let correctIndex = quizData[currentQuestionIndex].answer;
-    // optionsContainer.querySelectorAll("button")[correctIndex].classList.replace("btn-secondary", "btn-outline-success");
 
     // enables next button
     nextButton.disabled = false;
 };
+
+nextButton.addEventListener("click", () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < quizData.length) {
+        loadQuestion();
+    } else {
+        quizContainer.classList.add("hidden");
+        scoreContainer.classList.remove("hidden");
+        scoreId.textContent = `You scored a ${score} out of ${quizData.length}`;
+    }
+});
+
+
 
 loadQuestion();
 
